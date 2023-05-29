@@ -6,6 +6,10 @@ pragma solidity ^0.8.9;
 // Purchase course
 // Get trending course
 // Optional - search course
+// get number of students per instructor ✅
+
+// Bug: Once already purchased he can again purchase
+// Fix: Give Purchase | Already purchased option.
 contract Agora {
     struct Course {
         address owner;
@@ -21,11 +25,17 @@ contract Agora {
         string language;
         bool certificate;
     }
+    struct Instructor {
+        address addressOfInstructor;
+        address[] students;
+    }
     event Log(string message);
     event Log(address id);
     // event Log(address indexed indexedtype);
     mapping(uint256 => Course) public courses;
-    mapping(uint256 => address) public instructors;
+    // mapping(uint256 => address) public instructors;
+
+    mapping(uint256 => Instructor) public instructors;
     mapping(uint256 => address) public students;
 
     uint256 public numberOfCourses = 0;
@@ -37,6 +47,7 @@ contract Agora {
         string memory _title
     ) public returns (uint256) {
         Course storage course = courses[numberOfCourses];
+        Instructor storage instructor = instructors[numberOfInstructors];
         course.owner = _owner;
         course.title = _title;
 
@@ -46,16 +57,15 @@ contract Agora {
         emit Log(_owner);
         for (uint256 i = 0; i < numberOfInstructors; i++) {
             emit Log("Inside loop instructor:");
-            address instructorInstance = instructors[i];
-            emit Log(instructorInstance);
-            if (instructors[i] == _owner) {
+
+            if (instructors[i].addressOfInstructor == _owner) {
                 emit Log("Instructor is already present");
                 alreadyInstructor = true;
                 break;
             }
         }
         if (!alreadyInstructor) {
-            instructors[numberOfInstructors] = _owner;
+            instructor.addressOfInstructor = _owner;
             numberOfInstructors++;
         }
 
@@ -83,6 +93,24 @@ contract Agora {
         course.consumers.push(msg.sender);
 
         (bool sent, ) = payable(course.owner).call{value: amount}("");
+
+        uint256 id;
+        for (uint256 i = 0; i < numberOfInstructors; i++) {
+            if (instructors[i].addressOfInstructor == courses[_id].owner) {
+                id = i;
+            }
+        }
+        address[] memory studentsOfInstructor = getStudentsByInstructor(id);
+        alreadyStudent = false;
+        for (uint256 i = 0; i < studentsOfInstructor.length; i++) {
+            if (studentsOfInstructor[i] == msg.sender) {
+                alreadyStudent = true;
+                break;
+            }
+        }
+        if (!alreadyStudent) {
+            instructors[id].students.push(msg.sender);
+        }
     }
 
     function getCourses() public view returns (Course[] memory) {
@@ -105,18 +133,28 @@ contract Agora {
         return allStudents;
     }
 
-    function getInstructors() public view returns (address[] memory) {
-        address[] memory allInstructors = new address[](numberOfInstructors);
+    function getInstructors() public view returns (Instructor[] memory) {
+        Instructor[] memory allInstructors = new Instructor[](
+            numberOfInstructors
+        );
 
         for (uint256 i = 0; i < numberOfInstructors; i++) {
-            address item = instructors[i];
+            Instructor storage item = instructors[i];
             allInstructors[i] = item;
         }
         return allInstructors;
     }
 
-    function getStudents(uint256 _id) public view returns (address[] memory) {
+    function getStudentsByCourse(
+        uint256 _id
+    ) public view returns (address[] memory) {
         return (courses[_id].consumers);
+    }
+
+    function getStudentsByInstructor(
+        uint256 _id
+    ) public view returns (address[] memory) {
+        return (instructors[_id].students);
     }
 
     function getTrendingCourses() public view returns (Course[] memory) {
