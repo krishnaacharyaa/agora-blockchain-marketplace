@@ -1,15 +1,17 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.9;
 
-// Add course
-// Get courses
-// Purchase course
-// Get trending course
 // Optional - search course
-// get number of students per instructor ✅
 
-// Bug: Once already purchased he can again purchase
-// Fix: Give Purchase | Already purchased option.
+// Add Course
+// Total Instructors
+// Total Students
+// Total Courses
+// Students by instructor
+// Students by course
+// Course AlreadyPurchased by student
+// Get Trending course based on number of students
+
 contract Agora {
     struct Course {
         address owner;
@@ -41,6 +43,36 @@ contract Agora {
     uint256 public numberOfCourses = 0;
     uint256 public numberOfInstructors = 0;
     uint256 public numberOfStudents = 0;
+
+    // function searchCourse(
+    //     string memory input
+    // ) public view returns (Course[] memory) {
+    //     // Create an array to store the courses that match the search criteria
+    //     Course[] memory matchingCourses = new Course[](0);
+
+    //     // Iterate through all courses
+    //     for (uint256 i = 0; i < numberOfCourses; i++) {
+    //         if (courses[i].title.contains(input)) {
+    //             // Push the course to the array of matching courses
+    //             matchingCourses.push(courses[i]);
+    //         }
+    //     }
+
+    //     // Return the array of matching courses
+    //     return matchingCourses;
+    // }
+
+    function alreadyPurchased(uint256 _id) public returns (bool) {
+        bool purchased = false;
+        for (uint256 i = 0; i < courses[_id].consumers.length; i++) {
+            if (courses[_id].consumers[i] == msg.sender) {
+                purchased = true;
+                emit Log("YOu have it already!!!");
+                break;
+            }
+        }
+        return purchased;
+    }
 
     function createCourse(
         address _owner,
