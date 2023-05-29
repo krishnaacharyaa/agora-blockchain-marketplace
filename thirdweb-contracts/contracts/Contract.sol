@@ -51,6 +51,7 @@ contract Agora {
             if (instructors[i] == _owner) {
                 emit Log("Instructor is already present");
                 alreadyInstructor = true;
+                break;
             }
         }
         if (!alreadyInstructor) {
@@ -63,15 +64,15 @@ contract Agora {
 
     function purchaseCourse(uint256 _id) public payable {
         bool alreadyStudent = false;
-        address student = students[numberOfStudents];
         for (uint256 i = 0; i < numberOfStudents; i++) {
             if (msg.sender == students[i]) {
                 emit Log("Student is already present");
                 alreadyStudent = true;
+                break;
             }
         }
         if (!alreadyStudent) {
-            student = msg.sender;
+            students[numberOfStudents] = msg.sender;
             numberOfStudents++;
         }
 
