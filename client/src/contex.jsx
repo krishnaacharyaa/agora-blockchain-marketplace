@@ -22,7 +22,10 @@ export const StateContextProvider = ({ children }) => {
 		contract,
 		"createCourse"
 	);
-
+	const { mutateAsync: alreadyPurchased, isLoading } = useContractWrite(
+		contract,
+		"alreadyPurchased"
+	);
 	const address = useAddress();
 	const connect = useMetamask();
 
@@ -38,8 +41,6 @@ export const StateContextProvider = ({ children }) => {
 		certificate,
 	}) => {
 		var today = new Date();
-
-		// Get the day, month, and year
 		var day = today.getDate();
 		var month = today.toLocaleString("default", { month: "long" });
 		var year = today.getFullYear();
@@ -102,13 +103,27 @@ export const StateContextProvider = ({ children }) => {
 			title: course.title,
 			description: course.description,
 			price: course.price,
-			image: campaign.image,
+			image: course.image,
+			createdOn: course.createdOn,
+			creadtedBy: course.createdBy,
+			level: course.level,
+			language: course.language,
+			category: course.category,
+			certificate: course.certificate,
 			pId: i,
 		}));
-
 		return parsedCampaings;
 	};
-
+	const isAlreadyPurchased = async (pId) => {
+		let data;
+		try {
+			console.log("pid is" + pId);
+			data = await alreadyPurchased({ args: [pId] });
+		} catch (error) {
+			console.log("Error" + error);
+		}
+		return data;
+	};
 	const buyCourse = async (pId, amount) => {
 		const data = await contract.call("purchaseCourse", [pId], {
 			value: ethers.utils.parseEther(amount),
@@ -127,6 +142,7 @@ export const StateContextProvider = ({ children }) => {
 				buyCourse,
 				getTrendingCourses,
 				isLoadingMain,
+				isAlreadyPurchased,
 			}}
 		>
 			{children}

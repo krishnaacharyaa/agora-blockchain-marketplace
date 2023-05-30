@@ -44,12 +44,11 @@ contract Agora {
     uint256 public numberOfInstructors = 0;
     uint256 public numberOfStudents = 0;
 
-    function alreadyPurchased(uint256 _id) public returns (bool) {
+    function alreadyPurchased(uint256 _id) public view returns (bool) {
         bool purchased = false;
         for (uint256 i = 0; i < courses[_id].consumers.length; i++) {
             if (courses[_id].consumers[i] == msg.sender) {
                 purchased = true;
-                emit Log("YOu have it already!!!");
                 break;
             }
         }
