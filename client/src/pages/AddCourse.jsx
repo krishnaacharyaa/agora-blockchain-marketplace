@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { ethers } from "ethers";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import { useStateContext } from "../contex";
 
 const AddCourse = () => {
 	const navigate = useNavigate();
 	const [isLoading, setIsLoading] = useState(false);
-	const { createCampaign } = useStateContext();
+	const { publishCourse } = useStateContext();
 	const levels = ["easy", "medium", "hard"];
 	const categories = [
 		"Web Development",
@@ -24,7 +26,38 @@ const AddCourse = () => {
 	const [price, setPrice] = useState();
 	const [image, setImage] = useState("");
 
-	const handleSubmit = () => {};
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		// Validate form fields
+		if (
+			level === "" ||
+			category === "" ||
+			language === "" ||
+			name === "" ||
+			title === "" ||
+			description === "" ||
+			price === null ||
+			image === ""
+		) {
+			console.log("I am here");
+			toast.error("Please fill in all fields");
+			return;
+		}
+		setIsLoading(true);
+		await publishCourse({
+			name,
+			title,
+			description,
+			price,
+			image,
+			language,
+			category,
+			level,
+			certificate,
+		});
+		setIsLoading(false);
+		navigate("/");
+	};
 	// return <div className="text-3xl">Hello</div>;
 	return (
 		<div className="container mx-auto p-4">
@@ -161,6 +194,7 @@ const AddCourse = () => {
 					Submit
 				</button>
 			</form>
+			<ToastContainer />
 		</div>
 	);
 };
