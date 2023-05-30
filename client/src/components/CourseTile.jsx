@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 const CourseTile = ({ isLoading, courses }) => {
 	const navigate = useNavigate();
 
-	const handleNavigate = (campaign) => {
-		// navigate(`/campaign-details/${campaign.title}`, { state: campaign });
+	const handleNavigate = (course) => {
+		navigate(`/course-details`, { state: course });
 	};
 	return (
 		<div>
@@ -17,7 +17,10 @@ const CourseTile = ({ isLoading, courses }) => {
 			{!isLoading &&
 				courses.length > 0 &&
 				courses.map((course) => (
-					<div>
+					<div
+						className="p-8 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] "
+						onClick={() => handleNavigate(course)}
+					>
 						{course.title}
 						{course.price.toString()}
 					</div>
