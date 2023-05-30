@@ -20,7 +20,7 @@ contract Agora {
         address[] consumers;
         uint256 price;
         string image;
-        uint256 createdOn;
+        string createdOn;
         string createdBy;
         string level;
         string category;
@@ -62,7 +62,7 @@ contract Agora {
         string memory _description,
         uint256 _price,
         string memory _image,
-        uint256 createdOn,
+        string memory createdOn,
         string memory createdBy,
         string memory level,
         string memory category,

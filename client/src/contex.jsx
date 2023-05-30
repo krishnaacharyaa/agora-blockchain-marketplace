@@ -14,7 +14,7 @@ const StateContext = createContext();
 
 export const StateContextProvider = ({ children }) => {
 	const { contract } = useContract(
-		"0x7f157737c52BfB2C6326e6Ee1EeC66077B6457e4"
+		"0x5637A85dA11b660Fdc2081A072fcF41FE443cc5A"
 	);
 	const { mutateAsync: createCourse } = useContractWrite(
 		contract,
@@ -24,15 +24,40 @@ export const StateContextProvider = ({ children }) => {
 	const address = useAddress();
 	const connect = useMetamask();
 
-	const publishCourse = async (form) => {
+	const publishCourse = async ({
+		name,
+		title,
+		description,
+		price,
+		image,
+		language,
+		category,
+		level,
+		certificate,
+	}) => {
+		var today = new Date();
+
+		// Get the day, month, and year
+		var day = today.getDate();
+		var month = today.toLocaleString("default", { month: "long" });
+		var year = today.getFullYear();
+
+		// Format the date string
+		var formattedDate = day + " " + month + " " + year;
 		try {
 			const data = await createCourse({
 				args: [
 					address, // owner
-					form.title, // title
-					form.description, // description
-					form.price,
-					form.image,
+					title,
+					description,
+					ethers.utils.parseUnits(price, 18),
+					image,
+					formattedDate,
+					name,
+					level,
+					category,
+					language,
+					certificate,
 				],
 			});
 
