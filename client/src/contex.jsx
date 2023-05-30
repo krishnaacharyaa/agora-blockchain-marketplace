@@ -14,7 +14,7 @@ const StateContext = createContext();
 
 export const StateContextProvider = ({ children }) => {
 	const { contract } = useContract(
-		"0x92D7eb92F5Dbd441Ccd525E8b14B6948e69c1D3d"
+		"0x7f157737c52BfB2C6326e6Ee1EeC66077B6457e4"
 	);
 	const { mutateAsync: createCourse } = useContractWrite(
 		contract,
