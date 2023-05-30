@@ -44,24 +44,6 @@ contract Agora {
     uint256 public numberOfInstructors = 0;
     uint256 public numberOfStudents = 0;
 
-    // function searchCourse(
-    //     string memory input
-    // ) public view returns (Course[] memory) {
-    //     // Create an array to store the courses that match the search criteria
-    //     Course[] memory matchingCourses = new Course[](0);
-
-    //     // Iterate through all courses
-    //     for (uint256 i = 0; i < numberOfCourses; i++) {
-    //         if (courses[i].title.contains(input)) {
-    //             // Push the course to the array of matching courses
-    //             matchingCourses.push(courses[i]);
-    //         }
-    //     }
-
-    //     // Return the array of matching courses
-    //     return matchingCourses;
-    // }
-
     function alreadyPurchased(uint256 _id) public returns (bool) {
         bool purchased = false;
         for (uint256 i = 0; i < courses[_id].consumers.length; i++) {
@@ -76,13 +58,30 @@ contract Agora {
 
     function createCourse(
         address _owner,
-        string memory _title
+        string memory _title,
+        string memory _description,
+        uint256 _price,
+        string memory _image,
+        uint256 createdOn,
+        string memory createdBy,
+        string memory level,
+        string memory category,
+        string memory language,
+        bool certificate
     ) public returns (uint256) {
         Course storage course = courses[numberOfCourses];
         Instructor storage instructor = instructors[numberOfInstructors];
         course.owner = _owner;
         course.title = _title;
-
+        course.description = _description;
+        course.price = _price;
+        course.image = _image;
+        course.createdOn = createdOn;
+        course.createdBy = createdBy;
+        course.language = language;
+        course.level = level;
+        course.certificate = certificate;
+        course.category = category;
         numberOfCourses++;
         bool alreadyInstructor = false;
 
@@ -206,3 +205,20 @@ contract Agora {
         return courseList;
     }
 }
+// function searchCourse(
+//     string memory input
+// ) public view returns (Course[] memory) {
+//     // Create an array to store the courses that match the search criteria
+//     Course[] memory matchingCourses = new Course[](0);
+
+//     // Iterate through all courses
+//     for (uint256 i = 0; i < numberOfCourses; i++) {
+//         if (courses[i].title.contains(input)) {
+//             // Push the course to the array of matching courses
+//             matchingCourses.push(courses[i]);
+//         }
+//     }
+
+//     // Return the array of matching courses
+//     return matchingCourses;
+// }
