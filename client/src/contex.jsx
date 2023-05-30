@@ -82,6 +82,12 @@ export const StateContextProvider = ({ children }) => {
 			description: course.description,
 			price: course.price,
 			image: course.image,
+			createdOn: course.createdOn,
+			creadtedBy: course.createdBy,
+			level: course.level,
+			language: course.language,
+			category: course.category,
+			certificate: course.certificate,
 			pId: i,
 		}));
 
