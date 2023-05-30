@@ -1,4 +1,4 @@
-import React, { useContext, createContext } from "react";
+import React, { useContext, createContext, useState } from "react";
 
 import {
 	useAddress,
@@ -7,12 +7,14 @@ import {
 	useContractRead,
 	useContractWrite,
 } from "@thirdweb-dev/react";
+
 import { ethers } from "ethers";
 import { EditionMetadataWithOwnerOutputSchema } from "@thirdweb-dev/sdk";
 
 const StateContext = createContext();
 
 export const StateContextProvider = ({ children }) => {
+	const [isLoadingMain, setIsLoadingMain] = useState(false);
 	const { contract } = useContract(
 		"0x5637A85dA11b660Fdc2081A072fcF41FE443cc5A"
 	);
@@ -45,6 +47,7 @@ export const StateContextProvider = ({ children }) => {
 		// Format the date string
 		var formattedDate = day + " " + month + " " + year;
 		try {
+			setIsLoadingMain(true);
 			const data = await createCourse({
 				args: [
 					address, // owner
@@ -60,6 +63,8 @@ export const StateContextProvider = ({ children }) => {
 					certificate,
 				],
 			});
+
+			setIsLoadingMain(false);
 
 			console.log("contract call success", data);
 		} catch (error) {
@@ -115,6 +120,7 @@ export const StateContextProvider = ({ children }) => {
 				getCourses,
 				buyCourse,
 				getTrendingCourses,
+				isLoadingMain,
 			}}
 		>
 			{children}

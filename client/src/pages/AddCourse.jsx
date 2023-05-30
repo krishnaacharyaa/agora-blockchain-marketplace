@@ -8,7 +8,7 @@ import { useStateContext } from "../contex";
 const AddCourse = () => {
 	const navigate = useNavigate();
 	const [isLoading, setIsLoading] = useState(false);
-	const { publishCourse } = useStateContext();
+	const { publishCourse, isLoadingMain } = useStateContext();
 	const levels = ["easy", "medium", "hard"];
 	const categories = [
 		"Web Development",
@@ -187,12 +187,18 @@ const AddCourse = () => {
 						onChange={(e) => setImage(e.target.value)}
 					/>
 				</div>
-				<button
-					type="submit"
-					className="px-4 py-2 bg-blue-500 text-white rounded-md"
-				>
-					Submit
-				</button>
+				{isLoadingMain ? (
+					<button className="px-4 py-2 bg-blue-200 text-white rounded-md">
+						Loading...
+					</button>
+				) : (
+					<button
+						type="submit"
+						className="px-4 py-2 bg-blue-500 text-white rounded-md"
+					>
+						Submit
+					</button>
+				)}
 			</form>
 			<ToastContainer />
 		</div>
