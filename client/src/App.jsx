@@ -9,7 +9,7 @@ import Home from "./pages/Home";
 const App = () => {
 	return (
 		<div>
-			<div className="text-yellow-500">Hello</div>
+			<div className="text-yellow-500 text-5xl">Hello</div>
 			<Routes>
 				<Route path="/" element={<Home />} />
 				{/* <Route path='/trending' element={<Trending/>}/>
