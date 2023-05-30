@@ -130,6 +130,10 @@ export const StateContextProvider = ({ children }) => {
 		});
 		return data;
 	};
+	const getNumberOfCourses = async () => {
+		const courses = await contract.call("numberOfCourses");
+		return courses;
+	};
 
 	return (
 		<StateContext.Provider
@@ -143,6 +147,7 @@ export const StateContextProvider = ({ children }) => {
 				getTrendingCourses,
 				isLoadingMain,
 				isAlreadyPurchased,
+				getNumberOfCourses,
 			}}
 		>
 			{children}

@@ -6,7 +6,7 @@ import CourseDetails from "./pages/CourseDetails";
 
 const App = () => {
 	return (
-		<div>
+		<div className="min-h-screen gradient-bg-welcome">
 			<Routes>
 				<Route path="/" element={<Home />} />
 				<Route path="/add-course" element={<AddCourse />} />
