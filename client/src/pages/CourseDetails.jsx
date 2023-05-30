@@ -16,19 +16,20 @@ const CourseDetails = () => {
 		setIsLoading(false);
 		Navigate("/");
 	};
-	const alreadyPurchased = async () => {
-		const data = await isAlreadyPurchased(state.pId);
-		setAlreadyPurchasedState(data);
-	};
+	// const alreadyPurchased = async () => {
+	// 	const data = await isAlreadyPurchased(state.pId);
+	// 	setAlreadyPurchasedState(data);
+	// };
 	useEffect(() => {
-		alreadyPurchased();
+		window.scrollTo(0, 0);
+		// alreadyPurchased();
 	}, []);
 
 	const [isLoading, setIsLoading] = useState(false);
 	return (
 		<div className="p-16 px-32 text-white">
 			<div className="flex gap-10">
-				<img src={state.image} className="flex-1 h-[600px] rounded-3xl"></img>
+				<img src={state.image} className="flex-1 h-[500px] rounded-3xl"></img>
 				<div className="flex flex-col justify-around">
 					<CountBox title="level" value={state.level} />
 					<CountBox title="language" value={state.language} />
@@ -72,7 +73,7 @@ const CourseDetails = () => {
 				) : (
 					<button
 						onClick={handleSubmit}
-						className="p-4  bg-blue-500 text-xl rounded-md"
+						className="p-4 bg-pink-500 text-xl rounded-md"
 					>
 						{!alreadyPurchasedState ? " Purchase Course" : "Already Purchased"}
 					</button>

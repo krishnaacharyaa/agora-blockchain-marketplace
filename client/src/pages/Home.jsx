@@ -30,17 +30,17 @@ const Home = () => {
 	};
 	return (
 		<div className="p-8 px-20">
-			<div className="flex justify-between items-center mb-20">
+			<div className="flex justify-between items-center mb-16">
 				<div className="text-white text-4xl">Agora</div>
 				<button
-					className="text-white bg-blue-500 text-xl p-4 rounded-lg "
+					className="text-white bg-pink-500 text-xl p-4 rounded-lg "
 					onClick={handleSaveButton}
 				>
 					Add Course
 				</button>
 			</div>
 			<div className="flex justify-between items-center">
-				<div className="text-white text-5xl w-1/2">
+				<div className="text-white text-5xl w-1/2 leading-relaxed ">
 					Secure MarketPlace to trade courses using Ethereum and Blockchain
 				</div>
 				{/* <div className="bg-[url('https://nft-tailwind.preview.uideck.com/src/images/hero/hero-image.svg')]"></div> */}
@@ -51,7 +51,7 @@ const Home = () => {
 				/>
 			</div>
 
-			<div className="text-white text-3xl">Courses</div>
+			<div className="text-white text-3xl mt-8">Courses</div>
 
 			<div>
 				<CourseTile key={uuidv4()} isLoading={isLoading} courses={courses} />

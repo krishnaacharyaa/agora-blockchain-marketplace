@@ -60,7 +60,7 @@ const AddCourse = () => {
 	};
 	// return <div className="text-3xl">Hello</div>;
 	return (
-		<div className="container mx-auto p-4">
+		<div className="container mx-auto p-4 text-white">
 			<form onSubmit={handleSubmit} className="space-y-4">
 				<div>
 					<label htmlFor="level" className="block font-medium mb-1">
@@ -68,13 +68,19 @@ const AddCourse = () => {
 					</label>
 					<select
 						id="level"
-						className="block w-full p-2 border border-gray-300 rounded-md"
+						className="block w-full p-2 border bg-transparent border-gray-300 rounded-md"
 						value={level}
 						onChange={(e) => setLevel(e.target.value)}
 					>
-						<option value="">Select level</option>
+						<option value="" className="bg-gray-900">
+							Select level
+						</option>
 						{levels.map((levelOption) => (
-							<option key={levelOption} value={levelOption}>
+							<option
+								key={levelOption}
+								value={levelOption}
+								className="bg-gray-900"
+							>
 								{levelOption}
 							</option>
 						))}
@@ -86,31 +92,44 @@ const AddCourse = () => {
 					</label>
 					<select
 						id="category"
-						className="block w-full p-2 border border-gray-300 rounded-md"
+						className="block w-full p-2 border bg-transparent border-gray-300 rounded-md"
 						value={category}
 						onChange={(e) => setCategory(e.target.value)}
 					>
-						<option value="">Select category</option>
+						<option value="" className="bg-gray-900">
+							Select category
+						</option>
 						{categories.map((categoryOption) => (
-							<option key={categoryOption} value={categoryOption}>
+							<option
+								key={categoryOption}
+								value={categoryOption}
+								className="bg-gray-900"
+							>
 								{categoryOption}
 							</option>
 						))}
 					</select>
 				</div>
-				<div>
+				<div className="bg-transparent">
 					<label htmlFor="language" className="block font-medium mb-1">
 						Language
 					</label>
 					<select
 						id="language"
-						className="block w-full p-2 border border-gray-300 rounded-md"
+						className="block w-full p-2 border bg-transparent border-gray-300 rounded-md "
 						value={language}
 						onChange={(e) => setLanguage(e.target.value)}
+						style={{ backgroundColor: "transparent" }}
 					>
-						<option value="">Select language</option>
+						<option className=" bg-gray-900" value="">
+							Select language
+						</option>
 						{languages.map((languageOption) => (
-							<option key={languageOption} value={languageOption}>
+							<option
+								key={languageOption}
+								value={languageOption}
+								className="bg-transparent bg-gray-900"
+							>
 								{languageOption}
 							</option>
 						))}
@@ -135,7 +154,7 @@ const AddCourse = () => {
 					<input
 						id="name"
 						type="text"
-						className="block w-full p-2 border border-gray-300 rounded-md"
+						className="block w-full p-2 border bg-transparent border-gray-300 rounded-md"
 						value={name}
 						onChange={(e) => setName(e.target.value)}
 					/>
@@ -147,7 +166,7 @@ const AddCourse = () => {
 					<input
 						id="title"
 						type="text"
-						className="block w-full p-2 border border-gray-300 rounded-md"
+						className="block w-full p-2 border bg-transparent border-gray-300 rounded-md"
 						value={title}
 						onChange={(e) => setTitle(e.target.value)}
 					/>
@@ -158,7 +177,7 @@ const AddCourse = () => {
 					</label>
 					<textarea
 						id="description"
-						className="block w-full p-2 border border-gray-300 rounded-md"
+						className="block w-full p-2 border bg-transparent border-gray-300 rounded-md"
 						value={description}
 						onChange={(e) => setDescription(e.target.value)}
 					/>
@@ -170,7 +189,7 @@ const AddCourse = () => {
 					<input
 						id="price"
 						type="number"
-						className="block w-full p-2 border border-gray-300 rounded-md"
+						className="block w-full p-2 border bg-transparent border-gray-300 rounded-md"
 						value={price || ""}
 						onChange={(e) => setPrice(e.target.value)}
 					/>
@@ -182,7 +201,7 @@ const AddCourse = () => {
 					<input
 						id="image"
 						type="text"
-						className="block w-full p-2 border border-gray-300 rounded-md"
+						className="block w-full p-2 border bg-transparent border-gray-300 rounded-md"
 						value={image}
 						onChange={(e) => setImage(e.target.value)}
 					/>
