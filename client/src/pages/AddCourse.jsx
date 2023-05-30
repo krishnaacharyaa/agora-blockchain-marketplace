@@ -187,7 +187,7 @@ const AddCourse = () => {
 						onChange={(e) => setImage(e.target.value)}
 					/>
 				</div>
-				{isLoadingMain ? (
+				{isLoading ? (
 					<button className="px-4 py-2 bg-blue-200 text-white rounded-md">
 						Loading...
 					</button>
