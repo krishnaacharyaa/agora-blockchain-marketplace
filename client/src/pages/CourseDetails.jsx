@@ -42,15 +42,52 @@ const CourseDetails = () => {
 				<div className="text-2xl mt-4 mx-8">by {state.creadtedBy}</div>
 			</div> */}
 
-			<div className="text-xl font-bold mt-8">TITLE</div>
-			<div className="text-2xl mt-4 text-gray-500">{state.title}</div>
+			<div className="flex justify-between">
+				<div>
+					<div className="text-xl font-epilogue font-bold mt-8">TITLE</div>
+					<div className="text-2xl mt-4 text-gray-500">{state.title}</div>
 
-			<div className="text-xl font-bold mt-8">DESCRIPTION</div>
-			<div className="text-2xl mt-4 text-gray-500">{state.description}</div>
+					<div className="text-xl font-epilogue font-bold mt-8">
+						DESCRIPTION
+					</div>
+					<div className="text-2xl mt-4 text-gray-500">{state.description}</div>
 
-			<div className="text-xl font-bold mt-8">PRICE</div>
-			<div className="text-2xl mt-4 text-gray-500">
-				{ethers.utils.formatUnits(state.price, 18)} Ether
+					<div className="text-xl  font-epilogue font-bold mt-8">PRICE</div>
+					<div className="text-2xl mt-4 text-gray-500">
+						{ethers.utils.formatUnits(state.price, 18)} Ether
+					</div>
+				</div>
+				<div className="mt-8 w-[700px]">
+					<div className=" flex flex-col p-4 bg-[#1c1c24] rounded-[10px]">
+						<div className="">
+							<div className=" p-4 bg-[#13131a] rounded-[10px]">
+								<h4 className="font-epilogue font-semibold text-[14px] leading-[22px] text-white">
+									What are you waiting for ?
+								</h4>
+								<p className="mt-[20px] font-epilogue font-normal leading-[22px] text-[#808191]">
+									To be competitive in this world, we need to constantly upgrade
+									ourselves, start your upgrade by purchasing this course
+								</p>
+							</div>
+							<div className="mt-8 w-full">
+								{isLoading ? (
+									<button className="p-3 w-full bg-gray-400 text-white rounded-md">
+										Loading..
+									</button>
+								) : (
+									<button
+										onClick={handleSubmit}
+										className="p-3 bg-pink-500 text-xl rounded-md w-full"
+									>
+										{!alreadyPurchasedState
+											? " Purchase Course"
+											: "Already Purchased"}
+									</button>
+								)}
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 			{/* 
 			<div></div>
@@ -65,20 +102,6 @@ const CourseDetails = () => {
 			<div>{state.language}</div>
 			<div>{state.category}</div>
 			<div>{state.certificate}</div> */}
-			<div className="mt-8">
-				{isLoading ? (
-					<button className="p-4 bg-gray-400 text-white rounded-md">
-						Loading..
-					</button>
-				) : (
-					<button
-						onClick={handleSubmit}
-						className="p-4 bg-pink-500 text-xl rounded-md"
-					>
-						{!alreadyPurchasedState ? " Purchase Course" : "Already Purchased"}
-					</button>
-				)}
-			</div>
 		</div>
 	);
 };
