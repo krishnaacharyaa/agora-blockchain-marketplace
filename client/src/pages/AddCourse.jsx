@@ -58,9 +58,30 @@ const AddCourse = () => {
 		setIsLoading(false);
 		navigate("/");
 	};
+
+	const goBack = () => {
+		navigate(-1);
+	};
+
 	// return <div className="text-3xl">Hello</div>;
 	return (
 		<div className="container mx-auto p-4 text-white">
+			<div className="flex items-center mb-4 ">
+				<button className="" onClick={goBack}>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						viewBox="0 0 24 24"
+						fill="white"
+						width="24"
+						height="24"
+					>
+						<path d="M0 0h24v24H0z" fill="none" />
+						<path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
+					</svg>
+				</button>
+				<div className=" text-2xl flex-1 text-center">ADD COURSE</div>
+			</div>
+
 			<form onSubmit={handleSubmit} className="space-y-4">
 				<div>
 					<label htmlFor="level" className="block font-medium mb-1">
@@ -119,7 +140,6 @@ const AddCourse = () => {
 						className="block w-full p-2 border bg-transparent border-gray-300 rounded-md "
 						value={language}
 						onChange={(e) => setLanguage(e.target.value)}
-						style={{ backgroundColor: "transparent" }}
 					>
 						<option className=" bg-gray-900" value="">
 							Select language
@@ -128,7 +148,7 @@ const AddCourse = () => {
 							<option
 								key={languageOption}
 								value={languageOption}
-								className="bg-transparent bg-gray-900"
+								className=" bg-gray-900"
 							>
 								{languageOption}
 							</option>

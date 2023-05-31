@@ -26,6 +26,7 @@ export const StateContextProvider = ({ children }) => {
 		contract,
 		"alreadyPurchased"
 	);
+
 	const address = useAddress();
 	const connect = useMetamask();
 
@@ -134,7 +135,14 @@ export const StateContextProvider = ({ children }) => {
 		const courses = await contract.call("numberOfCourses");
 		return courses;
 	};
-
+	const getNumberOfInstructors = async () => {
+		const instructors = await contract.call("numberOfInstructors");
+		return instructors;
+	};
+	const getNumberOfStudents = async () => {
+		const students = await contract.call("numberOfStudents");
+		return students;
+	};
 	return (
 		<StateContext.Provider
 			value={{
@@ -148,6 +156,8 @@ export const StateContextProvider = ({ children }) => {
 				isLoadingMain,
 				isAlreadyPurchased,
 				getNumberOfCourses,
+				getNumberOfInstructors,
+				getNumberOfStudents,
 			}}
 		>
 			{children}

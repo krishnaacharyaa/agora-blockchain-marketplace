@@ -3,18 +3,38 @@ import CourseTile from "../components/CourseTile";
 import { useStateContext } from "../contex";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
+import HighlightTile from "../components/HighlightTile";
 const Home = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [courses, setCourses] = useState([]);
+	const [trendingCourses, setTrendingCourses] = useState([]);
+	const [numberOfCourses, setOfNumberOfCourses] = useState("");
+	const [numberOfStudents, setNumberOfStudents] = useState("");
+	const [numberOfInstructors, setNumberOfInstructors] = useState("");
 	const navigate = useNavigate();
-	const { address, contract, getCourses, getNumberOfCourses } =
-		useStateContext();
+	const {
+		address,
+		contract,
+		getCourses,
+		getTrendingCourses,
+		getNumberOfCourses,
+		getNumberOfInstructors,
+		getNumberOfStudents,
+	} = useStateContext();
 
 	const fetchCourses = async () => {
 		setIsLoading(true);
 		const data = await getCourses();
-
 		setCourses(data);
+		const otherData = await getTrendingCourses();
+		setTrendingCourses(otherData);
+		let number = await getNumberOfCourses();
+		setOfNumberOfCourses(number);
+		number = await getNumberOfInstructors();
+		setNumberOfInstructors(number);
+		number = await getNumberOfStudents();
+		setNumberOfStudents(number);
+
 		setIsLoading(false);
 	};
 	const fetchNumberOfCourses = async () => {
@@ -30,6 +50,9 @@ const Home = () => {
 	};
 	return (
 		<div className="p-8 px-20">
+			{/* <div>{numberOfCourses.toString()}</div>
+			<div>{numberOfInstructors.toString()}</div>
+			<div>{numberOfStudents.toString()}</div> */}
 			<div className="flex justify-between items-center mb-16">
 				<div className="text-white text-4xl">Agora</div>
 				<button
@@ -50,8 +73,25 @@ const Home = () => {
 					alt=""
 				/>
 			</div>
+			<div className="text-white text-3xl text-center">Highlights</div>
+			<div className=" flex justify-center items-center gap-24 px-64 mt-8">
+				<HighlightTile name={"COURSES"} number={numberOfCourses.toString()} />
+				<HighlightTile name={"STUDENTS"} number={numberOfStudents.toString()} />
+				<HighlightTile
+					name={"TUTORS"}
+					number={numberOfInstructors.toString()}
+				/>
+			</div>
+			<div className="text-white text-3xl mt-8">Trending Courses</div>
 
-			<div className="text-white text-3xl mt-8">Courses</div>
+			<div>
+				<CourseTile
+					key={uuidv4()}
+					isLoading={isLoading}
+					courses={trendingCourses}
+				/>
+			</div>
+			<div className="text-white text-3xl mt-10">Courses</div>
 
 			<div>
 				<CourseTile key={uuidv4()} isLoading={isLoading} courses={courses} />

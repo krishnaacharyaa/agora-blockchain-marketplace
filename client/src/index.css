@@ -88,11 +88,11 @@ body {
 	border: 1px solid rgba(255, 255, 255, 0.3);
 }
 .white-glass {
-	background: rgba(255, 255, 255, 0.05);
+	background: rgba(255, 255, 255, 0.28);
 	backdrop-filter: blur(5px);
 	border-radius: 16px;
 	-webkit-backdrop-filter: blur(5px);
-	border: 0px solid rgba(255, 255, 255, 0.3);
+	border: 0px solid rgba(255, 255, 255, 0.2);
 }
 
 .eth-card {

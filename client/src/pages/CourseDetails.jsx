@@ -1,11 +1,12 @@
 import { ethers } from "ethers";
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useStateContext } from "../contex";
 import CountBox from "../components/CountBox";
 
 const CourseDetails = () => {
 	const { state } = useLocation();
+	const navigate = useNavigate();
 	const decimalNumber = parseInt(state.price, 16);
 	const etherValue = decimalNumber / 1e18;
 	const [alreadyPurchasedState, setAlreadyPurchasedState] = useState(false);
@@ -14,7 +15,7 @@ const CourseDetails = () => {
 		setIsLoading(true);
 		await buyCourse(state.pId, ethers.utils.formatUnits(state.price, 18));
 		setIsLoading(false);
-		Navigate("/");
+		navigate("/");
 	};
 	// const alreadyPurchased = async () => {
 	// 	const data = await isAlreadyPurchased(state.pId);
@@ -24,10 +25,27 @@ const CourseDetails = () => {
 		window.scrollTo(0, 0);
 		// alreadyPurchased();
 	}, []);
-
+	const goBack = () => {
+		navigate(-1);
+	};
 	const [isLoading, setIsLoading] = useState(false);
 	return (
-		<div className="p-16 px-32 text-white">
+		<div className="p-8 px-32 text-white">
+			<div className="flex items-center mb-4 gap-8">
+				<button className="" onClick={goBack}>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						viewBox="0 0 24 24"
+						fill="white"
+						width="24"
+						height="24"
+					>
+						<path d="M0 0h24v24H0z" fill="none" />
+						<path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
+					</svg>
+				</button>
+				<div className=" text-2xl ">Course Details</div>
+			</div>
 			<div className="flex gap-10">
 				<img src={state.image} className="flex-1 h-[500px] rounded-3xl"></img>
 				<div className="flex flex-col justify-around">
@@ -45,15 +63,15 @@ const CourseDetails = () => {
 			<div className="flex justify-between">
 				<div>
 					<div className="text-xl font-epilogue font-bold mt-8">TITLE</div>
-					<div className="text-2xl mt-4 text-gray-500">{state.title}</div>
+					<div className="text-2xl mt-2 text-gray-500">{state.title}</div>
 
-					<div className="text-xl font-epilogue font-bold mt-8">
+					<div className="text-xl font-epilogue font-bold mt-4">
 						DESCRIPTION
 					</div>
-					<div className="text-2xl mt-4 text-gray-500">{state.description}</div>
+					<div className="text-2xl mt-2 text-gray-500">{state.description}</div>
 
-					<div className="text-xl  font-epilogue font-bold mt-8">PRICE</div>
-					<div className="text-2xl mt-4 text-gray-500">
+					<div className="text-xl  font-epilogue font-bold mt-4">PRICE</div>
+					<div className="text-2xl mt-2 text-gray-500">
 						{ethers.utils.formatUnits(state.price, 18)} Ether
 					</div>
 				</div>

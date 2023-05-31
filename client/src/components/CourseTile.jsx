@@ -13,7 +13,7 @@ const CourseTile = ({ isLoading, courses }) => {
 		<div className="flex mt-12 gap-6 hover:cursor-pointer">
 			{!isLoading && courses.length === 0 && (
 				<p className="font-epilogue font-semibold text-[14px] leading-[30px] text-[#818183]">
-					You have not created any campigns yet
+					No courses to show
 				</p>
 			)}
 			{!isLoading &&
