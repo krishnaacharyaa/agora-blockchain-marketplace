@@ -1,4 +1,4 @@
-import React, { useContext, createContext, useState } from "react";
+import React, { useContext, createContext, useState, useEffect } from "react";
 
 import {
 	useAddress,
@@ -15,9 +15,12 @@ const StateContext = createContext();
 
 export const StateContextProvider = ({ children }) => {
 	const [isLoadingMain, setIsLoadingMain] = useState(false);
+
+	const [currentAccount, setCurrentAccount] = useState("");
 	const { contract } = useContract(
 		"0x8B34004d7469b5eD48f264fB06A6CD29F9C4b3D2"
 	);
+
 	const { mutateAsync: createCourse } = useContractWrite(
 		contract,
 		"createCourse"
@@ -29,7 +32,21 @@ export const StateContextProvider = ({ children }) => {
 
 	const address = useAddress();
 	const connect = useMetamask();
+	const checkIfWalletIsConnect = async () => {
+		try {
+			if (!ethereum) return alert("Please install MetaMask.");
 
+			const accounts = await ethereum.request({ method: "eth_accounts" });
+
+			if (accounts.length) {
+				setCurrentAccount(accounts[0]);
+			} else {
+				console.log("No accounts found");
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	};
 	const publishCourse = async ({
 		name,
 		title,
@@ -143,6 +160,25 @@ export const StateContextProvider = ({ children }) => {
 		const students = await contract.call("numberOfStudents");
 		return students;
 	};
+	const connectWallet = async () => {
+		try {
+			if (!ethereum) return alert("Please install MetaMask.");
+
+			const accounts = await ethereum.request({
+				method: "eth_requestAccounts",
+			});
+
+			setCurrentAccount(accounts[0]);
+			window.location.reload();
+		} catch (error) {
+			console.log(error);
+
+			throw new Error("No ethereum object");
+		}
+	};
+	useEffect(() => {
+		checkIfWalletIsConnect();
+	}, []);
 	return (
 		<StateContext.Provider
 			value={{
@@ -152,12 +188,14 @@ export const StateContextProvider = ({ children }) => {
 				publishCourse,
 				getCourses,
 				buyCourse,
+				connectWallet,
 				getTrendingCourses,
 				isLoadingMain,
 				isAlreadyPurchased,
 				getNumberOfCourses,
 				getNumberOfInstructors,
 				getNumberOfStudents,
+				currentAccount,
 			}}
 		>
 			{children}
