@@ -60,20 +60,15 @@ const CourseDetails = () => {
 				<div className="text-2xl mt-4 mx-8">by {state.creadtedBy}</div>
 			</div> */}
 
-			<div className="flex justify-between">
-				<div>
+			<div className="flex justify-between gap-4">
+				<div className="max-w-[700px] ">
 					<div className="text-xl font-epilogue font-bold mt-8">TITLE</div>
-					<div className="text-2xl mt-2 text-gray-500">{state.title}</div>
+					<div className="text-xl mt-2 text-gray-500">{state.title}</div>
 
 					<div className="text-xl font-epilogue font-bold mt-4">
 						DESCRIPTION
 					</div>
-					<div className="text-2xl mt-2 text-gray-500">{state.description}</div>
-
-					<div className="text-xl  font-epilogue font-bold mt-4">PRICE</div>
-					<div className="text-2xl mt-2 text-gray-500">
-						{ethers.utils.formatUnits(state.price, 18)} Ether
-					</div>
+					<div className="text-xl mt-2 text-gray-500">{state.description}</div>
 				</div>
 				<div className="mt-8 w-[700px]">
 					<div className=" flex flex-col p-4 bg-[#1c1c24] rounded-[10px]">
@@ -98,7 +93,10 @@ const CourseDetails = () => {
 										className="p-3 bg-pink-500 text-xl rounded-md w-full"
 									>
 										{!alreadyPurchasedState
-											? " Purchase Course"
+											? `Purchase: ${ethers.utils.formatUnits(
+													state.price,
+													18
+											  )} Ether`
 											: "Already Purchased"}
 									</button>
 								)}

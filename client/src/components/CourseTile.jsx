@@ -20,20 +20,24 @@ const CourseTile = ({ isLoading, courses }) => {
 				courses.length > 0 &&
 				courses.map((course) => (
 					<div
-						className="white-glassmorphism h-80 w-80 text-white "
+						className="white-glassmorphism h-110 w-80 text-white "
 						onClick={() => handleNavigate(course)}
 					>
 						<img
-							className="p-4 rounded-lg"
+							className="p-4 rounded-lg min-h-[240px]"
 							src={course.image}
-							height={70}
+							// height={70}
 							alt="Hello"
 						/>
 						<div className="px-4">
-							<div className="text-xl font-bold">{course.title}</div>
+							<div className="text-xl font-bold  max-w-full truncate">
+								{course.title}
+							</div>
 							<div className="text-gray-400">{course.category}</div>
 							<div className="flex justify-between mt-2">
-								<div className="font-thin text-sm">By {course.creadtedBy}</div>
+								<div className="font-thin text-sm mb-3">
+									By {course.creadtedBy}
+								</div>
 								<div>{ethers.utils.formatUnits(course.price, 18)} ether</div>
 							</div>
 						</div>

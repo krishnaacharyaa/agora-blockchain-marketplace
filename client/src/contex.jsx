@@ -16,7 +16,7 @@ const StateContext = createContext();
 export const StateContextProvider = ({ children }) => {
 	const [isLoadingMain, setIsLoadingMain] = useState(false);
 	const { contract } = useContract(
-		"0x5637A85dA11b660Fdc2081A072fcF41FE443cc5A"
+		"0x8B34004d7469b5eD48f264fB06A6CD29F9C4b3D2"
 	);
 	const { mutateAsync: createCourse } = useContractWrite(
 		contract,
