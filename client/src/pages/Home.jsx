@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import CourseTile from "../components/CourseTile";
 import { useStateContext } from "../contex";
+import {
+	ThirdwebProvider,
+	ConnectWallet,
+	metamaskWallet,
+} from "@thirdweb-dev/react";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import HighlightTile from "../components/HighlightTile";
@@ -20,6 +25,8 @@ const Home = () => {
 		getNumberOfCourses,
 		getNumberOfInstructors,
 		getNumberOfStudents,
+		currentAccount,
+		connectWallet,
 	} = useStateContext();
 
 	const fetchCourses = async () => {
@@ -55,12 +62,26 @@ const Home = () => {
 			<div>{numberOfStudents.toString()}</div> */}
 			<div className="flex justify-between items-center mb-16">
 				<div className="text-white text-4xl">Agora</div>
-				<button
-					className="text-white bg-pink-500 text-xl p-4 rounded-lg "
-					onClick={handleSaveButton}
-				>
-					Add Course
-				</button>
+				<div className="">
+					<div className="flex gap-5 items-center justify-center">
+						{currentAccount == "" ? (
+							<button
+								onClick={connectWallet}
+								className="text-pink-400 border  border-pink-500 text-xl p-3 rounded-lg "
+							>
+								Connect Wallet
+							</button>
+						) : (
+							<button
+								className="text-white bg-pink-500 text-xl p-3 rounded-lg "
+								onClick={handleSaveButton}
+							>
+								Add Course
+							</button>
+						)}
+						<ConnectWallet className="p-4" />
+					</div>
+				</div>
 			</div>
 			<div className="flex justify-between items-center">
 				<div className="text-white text-5xl w-1/2 leading-relaxed ">
