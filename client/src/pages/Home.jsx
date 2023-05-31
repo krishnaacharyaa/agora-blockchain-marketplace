@@ -75,15 +75,16 @@ const Home = () => {
 			</div>
 			<div className="text-white text-3xl text-center">Highlights</div>
 			<div className=" flex justify-center items-center gap-24 px-64 mt-8">
-				{/* <HighlightTile name={"COURSES"} number={numberOfCourses.toString()} />
+				<HighlightTile name={"COURSES"} number={numberOfCourses.toString()} />
 				<HighlightTile name={"STUDENTS"} number={numberOfStudents.toString()} />
 				<HighlightTile
 					name={"TUTORS"}
-					number={numberOfInstructors.toString()} */}
+					number={numberOfInstructors.toString()}
+				/>
 
-				<HighlightTile name={"COURSES"} number={40} />
+				{/* <HighlightTile name={"COURSES"} number={40} />
 				<HighlightTile name={"STUDENTS"} number={24} />
-				<HighlightTile name={"TUTORS"} number={18} />
+				<HighlightTile name={"TUTORS"} number={18} /> */}
 			</div>
 			<div className="text-white text-3xl mt-8">Trending Courses</div>
 

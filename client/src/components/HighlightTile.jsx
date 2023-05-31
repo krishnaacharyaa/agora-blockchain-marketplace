@@ -7,7 +7,7 @@ const HighlightTile = ({ name, number }) => {
 				<div className="text text-gray-300 mb-4 text-center">{name}</div>
 				<div className="text-4xl text-center items-center justify-center flex">
 					<div>{number}</div>
-					<div className="ml-1">+</div>
+					{/* <div className="ml-1">+</div> */}
 				</div>
 			</div>
 		</div>
