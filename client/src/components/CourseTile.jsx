@@ -1,6 +1,8 @@
 import { ethers } from "ethers";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { ColorRing } from "react-loader-spinner";
+import CircularProgress from "./Loader";
 
 const CourseTile = ({ isLoading, courses }) => {
 	const navigate = useNavigate();
@@ -10,14 +12,14 @@ const CourseTile = ({ isLoading, courses }) => {
 	};
 
 	return (
-		<div className="flex mt-12 gap-6 hover:cursor-pointer">
-			{!isLoading && courses.length === 0 && (
+		<div className="flex mt-12 gap-6 hover:cursor-pointer flex-wrap">
+			{/* {(isLoading || !isLoading) && courses.length === 0 && < />} */}
+			{/* {!isLoading && courses.length === 0 && (
 				<p className="font-epilogue font-semibold text-[14px] leading-[30px] text-[#818183]">
 					No courses to show
 				</p>
-			)}
-			{!isLoading &&
-				courses.length > 0 &&
+			)} */}
+			{!isLoading && courses.length > 0 ? (
 				courses.map((course) => (
 					<div
 						className="white-glassmorphism h-110 w-80 text-white "
@@ -42,7 +44,14 @@ const CourseTile = ({ isLoading, courses }) => {
 							</div>
 						</div>
 					</div>
-				))}
+				))
+			) : (
+				<div className="h-52 flex justify-center items-center w-full">
+					<ColorRing
+						colors={["#78007C", "#78007C", "#78007C", "#78007C", "#78007C"]}
+					/>
+				</div>
+			)}
 		</div>
 	);
 };

@@ -9,9 +9,11 @@ import {
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import HighlightTile from "../components/HighlightTile";
+import { ColorRing } from "react-loader-spinner";
 const Home = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [courses, setCourses] = useState([]);
+	const [highlightLoading, setHighlightLoading] = useState(true);
 	const [trendingCourses, setTrendingCourses] = useState([]);
 	const [numberOfCourses, setOfNumberOfCourses] = useState("");
 	const [numberOfStudents, setNumberOfStudents] = useState("");
@@ -35,13 +37,14 @@ const Home = () => {
 		setCourses(data);
 		const otherData = await getTrendingCourses();
 		setTrendingCourses(otherData);
+		setHighlightLoading(true);
 		let number = await getNumberOfCourses();
 		setOfNumberOfCourses(number);
 		number = await getNumberOfInstructors();
 		setNumberOfInstructors(number);
 		number = await getNumberOfStudents();
 		setNumberOfStudents(number);
-
+		setHighlightLoading(false);
 		setIsLoading(false);
 	};
 	const fetchNumberOfCourses = async () => {
@@ -56,11 +59,11 @@ const Home = () => {
 		navigate("/add-course");
 	};
 	return (
-		<div className="p-8 px-20">
+		<div className="p-8 ">
 			{/* <div>{numberOfCourses.toString()}</div>
 			<div>{numberOfInstructors.toString()}</div>
 			<div>{numberOfStudents.toString()}</div> */}
-			<div className="flex justify-between items-center mb-16">
+			<div className="flex justify-between items-center mb-16 px-20">
 				<div className="text-white text-4xl">Agora</div>
 				<div className="">
 					<div className="flex gap-5 items-center justify-center">
@@ -83,7 +86,7 @@ const Home = () => {
 					</div>
 				</div>
 			</div>
-			<div className="flex justify-between items-center">
+			<div className="flex justify-between items-center px-20">
 				<div className="text-white text-5xl w-1/2 leading-relaxed ">
 					Secure MarketPlace to trade courses using Ethereum and Blockchain
 				</div>
@@ -94,20 +97,27 @@ const Home = () => {
 					alt=""
 				/>
 			</div>
-			<div className="text-white text-3xl text-center">Highlights</div>
-			<div className=" flex justify-center items-center gap-24 px-64 mt-8">
-				<HighlightTile name={"COURSES"} number={numberOfCourses.toString()} />
-				<HighlightTile name={"STUDENTS"} number={numberOfStudents.toString()} />
-				<HighlightTile
-					name={"TUTORS"}
-					number={numberOfInstructors.toString()}
-				/>
-
-				{/* <HighlightTile name={"COURSES"} number={40} />
-				<HighlightTile name={"STUDENTS"} number={24} />
-				<HighlightTile name={"TUTORS"} number={18} /> */}
-			</div>
-			<div className="text-white text-3xl mt-8">Trending Courses</div>
+			<div className="text-white text-3xl text-center mt-4">Highlights</div>
+			{!highlightLoading ? (
+				<div className=" flex justify-center items-center gap-24 px-64 mt-8">
+					<HighlightTile name={"COURSES"} number={numberOfCourses.toString()} />
+					<HighlightTile
+						name={"STUDENTS"}
+						number={numberOfStudents.toString()}
+					/>
+					<HighlightTile
+						name={"TUTORS"}
+						number={numberOfInstructors.toString()}
+					/>
+				</div>
+			) : (
+				<div className="flex w-full justify-center h-40 items-center">
+					<ColorRing
+						colors={["#78007C", "#78007C", "#78007C", "#78007C", "#78007C"]}
+					/>
+				</div>
+			)}
+			<div className="text-white text-3xl mt-8 ">Trending Courses</div>
 
 			<div>
 				<CourseTile
