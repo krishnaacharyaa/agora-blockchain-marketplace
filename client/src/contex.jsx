@@ -18,7 +18,7 @@ export const StateContextProvider = ({ children }) => {
 
 	const [currentAccount, setCurrentAccount] = useState("");
 	const { contract } = useContract(
-		"0x8B34004d7469b5eD48f264fB06A6CD29F9C4b3D2"
+		"0x8D3595D14ffCBD604780a149c966aEd4b64CF9a1"
 	);
 
 	const { mutateAsync: createCourse } = useContractWrite(
@@ -176,6 +176,22 @@ export const StateContextProvider = ({ children }) => {
 			throw new Error("No ethereum object");
 		}
 	};
+	const getNumberOfPurchases = async () => {
+		const numberOfPurchases = await contract.call("getNumberOfCourses", []);
+		// const { data, isLoading } = useContractRead(
+		// 	contract,
+		// 	"getNumberOfCourses",
+		// 	[]
+		// );
+		const parsedPurchases = [];
+		for (let i = 0; i < numberOfPurchases[0].length; i++) {
+			parsedPurchases.push({
+				courseNumber: numberOfPurchases[0][i],
+				purchases: numberOfPurchases[1][i],
+			});
+		}
+		return parsedPurchases;
+	};
 	useEffect(() => {
 		checkIfWalletIsConnect();
 	}, []);
@@ -196,6 +212,7 @@ export const StateContextProvider = ({ children }) => {
 				getNumberOfInstructors,
 				getNumberOfStudents,
 				currentAccount,
+				getNumberOfPurchases,
 			}}
 		>
 			{children}

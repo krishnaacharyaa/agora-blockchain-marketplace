@@ -163,6 +163,22 @@ contract Agora {
         return allStudents;
     }
 
+    function getNumberOfCourses()
+        public
+        view
+        returns (uint256[] memory, uint256[] memory)
+    {
+        uint256[] memory coursesForTrend = new uint256[](numberOfCourses);
+        uint256[] memory numberForTrend = new uint256[](numberOfCourses);
+        for (uint256 i = 0; i < numberOfCourses; i++) {
+            // coursesForTrend.push(courses[i]);
+            coursesForTrend[i] = i;
+            numberForTrend[i] = courses[i].consumers.length;
+            // numberForTrend.push(courses[i].consumers.length);
+        }
+        return (coursesForTrend, numberForTrend);
+    }
+
     function getInstructors() public view returns (Instructor[] memory) {
         Instructor[] memory allInstructors = new Instructor[](
             numberOfInstructors
