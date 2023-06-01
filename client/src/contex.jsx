@@ -18,7 +18,8 @@ export const StateContextProvider = ({ children }) => {
 
 	const [currentAccount, setCurrentAccount] = useState("");
 	const { contract } = useContract(
-		"0x8D3595D14ffCBD604780a149c966aEd4b64CF9a1"
+		"0x6D9885d0B30551b56E54381516aa2F490f038C9a"
+		// "0x8D3595D14ffCBD604780a149c966aEd4b64CF9a1"
 	);
 
 	const { mutateAsync: createCourse } = useContractWrite(
@@ -186,7 +187,7 @@ export const StateContextProvider = ({ children }) => {
 		const parsedPurchases = [];
 		for (let i = 0; i < numberOfPurchases[0].length; i++) {
 			parsedPurchases.push({
-				courseNumber: numberOfPurchases[0][i],
+				courseTitle: numberOfPurchases[0][i],
 				purchases: numberOfPurchases[1][i],
 			});
 		}
