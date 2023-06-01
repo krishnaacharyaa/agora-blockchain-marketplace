@@ -1,17 +1,26 @@
 import { ethers } from "ethers";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ColorRing } from "react-loader-spinner";
 import CircularProgress from "./Loader";
+import { useStateContext } from "../contex";
 
 import { v4 as uuidv4 } from "uuid";
 const CourseTile = ({ isLoading, courses }) => {
 	const navigate = useNavigate();
-
+	const [coursePurchases, setCoursePurchases] = useState([]);
 	const handleNavigate = (course) => {
 		navigate(`/course-details`, { state: course });
 	};
-
+	const { getNumberOfPurchases } = useStateContext();
+	const fetchNumberOfCourses = async () => {
+		const data = await getNumberOfPurchases();
+		console.log(data);
+		setCoursePurchases(data);
+	};
+	useEffect(() => {
+		fetchNumberOfCourses();
+	}, []);
 	return (
 		<div className="flex mt-12 gap-6 hover:cursor-pointer flex-wrap">
 			{/* {(isLoading || !isLoading) && courses.length === 0 && < />} */}
