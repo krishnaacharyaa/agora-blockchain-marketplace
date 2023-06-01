@@ -53,6 +53,7 @@ const Home = () => {
 
 	useEffect(() => {
 		if (contract) fetchCourses();
+		window.scrollTo(0, 0);
 		// fetchNumberOfCourses()
 	}, [address, contract]);
 	const handleSaveButton = () => {
@@ -67,14 +68,15 @@ const Home = () => {
 				<div className="text-white text-4xl">Agora</div>
 				<div className="">
 					<div className="flex gap-5 items-center justify-center">
-						{currentAccount == "" ? (
+						{/* {currentAccount == "" ? (
 							<button
 								onClick={connectWallet}
 								className="text-pink-400 border  border-pink-500 text-xl p-3 rounded-lg "
 							>
 								Connect Wallet
 							</button>
-						) : (
+						) : ( */}
+						{currentAccount && (
 							<button
 								className="text-white bg-pink-500 text-xl p-3 rounded-lg "
 								onClick={handleSaveButton}
@@ -82,6 +84,7 @@ const Home = () => {
 								Add Course
 							</button>
 						)}
+						{/* )} */}
 						<ConnectWallet className="p-4" />
 					</div>
 				</div>
