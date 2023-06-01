@@ -5,7 +5,7 @@ import { ColorRing } from "react-loader-spinner";
 import CircularProgress from "./Loader";
 
 import { v4 as uuidv4 } from "uuid";
-const CourseTile = ({ isLoading, courses }) => {
+const CourseTrendingTile = ({ isLoading, courses }) => {
 	const navigate = useNavigate();
 
 	const handleNavigate = (course) => {
@@ -21,7 +21,7 @@ const CourseTile = ({ isLoading, courses }) => {
 				</p>
 			)} */}
 			{!isLoading && courses.length > 0 ? (
-				courses.map((course) => (
+				courses.slice(0, 4).map((course) => (
 					<div
 						key={uuidv4()}
 						className="white-glassmorphism h-110 w-80 text-white "
@@ -58,4 +58,4 @@ const CourseTile = ({ isLoading, courses }) => {
 	);
 };
 
-export default CourseTile;
+export default CourseTrendingTile;

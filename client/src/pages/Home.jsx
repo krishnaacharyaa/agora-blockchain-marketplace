@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import HighlightTile from "../components/HighlightTile";
 import { ColorRing } from "react-loader-spinner";
+import CourseTrendingTile from "../components/CourseTrendingTile";
 const Home = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [courses, setCourses] = useState([]);
@@ -123,7 +124,7 @@ const Home = () => {
 			<div className="text-white text-3xl mt-8 ">Trending Courses</div>
 
 			<div>
-				<CourseTile
+				<CourseTrendingTile
 					key={uuidv4()}
 					isLoading={isLoading}
 					courses={trendingCourses}
