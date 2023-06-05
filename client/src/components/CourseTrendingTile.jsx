@@ -24,7 +24,7 @@ const CourseTrendingTile = ({ isLoading, courses }) => {
 	}, []);
 	const getValueByIndex1 = (value) => {
 		const foundObject = coursePurchases.find(
-			(obj) => obj.courseTitle.toString() === value.toString()
+			(obj) => obj.uniqueId.toString() === value.toString()
 		);
 		return foundObject ? foundObject.purchases.toString() : undefined;
 	};
@@ -57,11 +57,11 @@ const CourseTrendingTile = ({ isLoading, courses }) => {
 							alt="Hello"
 						/>
 						<div className="px-4">
-							<div className="flex justify-between">
+							<div className="flex justify-between  items-center">
 								<div className="text-xl font-bold  max-w-full truncate">
 									{course.title}
 								</div>
-								<div className="flex gap-2 ">
+								<div className="flex gap-2   items-center">
 									<svg
 										className="text-pink-600 "
 										width="20"
@@ -79,7 +79,7 @@ const CourseTrendingTile = ({ isLoading, courses }) => {
 										/>
 									</svg>
 
-									{getValueByIndex1(course.title)}
+									{getValueByIndex1(course.uniqueId)}
 								</div>
 							</div>
 							<div className="text-gray-400">{course.category}</div>

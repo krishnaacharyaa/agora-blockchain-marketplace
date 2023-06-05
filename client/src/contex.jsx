@@ -187,7 +187,7 @@ export const StateContextProvider = ({ children }) => {
 		const parsedPurchases = [];
 		for (let i = 0; i < numberOfPurchases[0].length; i++) {
 			parsedPurchases.push({
-				courseTitle: numberOfPurchases[0][i],
+				uniqueId: numberOfPurchases[0][i],
 				purchases: numberOfPurchases[1][i],
 			});
 		}
