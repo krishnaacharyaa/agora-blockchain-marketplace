@@ -17,7 +17,8 @@ export const StateContextProvider = ({ children }) => {
 
 	const [currentAccount, setCurrentAccount] = useState("");
 	const { contract } = useContract(
-		"0x6D9885d0B30551b56E54381516aa2F490f038C9a"
+		"0x55797162a41Ee1369B89594218c65331394CE7b8"
+		// "0x6D9885d0B30551b56E54381516aa2F490f038C9a"
 		// "0x8D3595D14ffCBD604780a149c966aEd4b64CF9a1"
 	);
 
@@ -107,7 +108,7 @@ export const StateContextProvider = ({ children }) => {
 			language: course.language,
 			category: course.category,
 			certificate: course.certificate,
-			pId: i,
+			uniqueId: course.uniqueId,
 		}));
 
 		return parsedCampaings;
@@ -117,6 +118,7 @@ export const StateContextProvider = ({ children }) => {
 		// const {campaigns}= useContractRead(contract,"getCampaigns",[{{args}}]);
 
 		const parsedCampaings = courses.map((course, i) => ({
+			uniqueId: course.uniqueId,
 			owner: course.owner,
 			title: course.title,
 			description: course.description,
@@ -128,22 +130,21 @@ export const StateContextProvider = ({ children }) => {
 			language: course.language,
 			category: course.category,
 			certificate: course.certificate,
-			pId: i,
 		}));
 		return parsedCampaings;
 	};
-	const isAlreadyPurchased = async (pId) => {
+	const isAlreadyPurchased = async (uniqueId) => {
 		let data;
 		try {
-			console.log("pid is" + pId);
-			data = await alreadyPurchased({ args: [pId] });
+			console.log("uniqueId is" + uniqueId);
+			data = await alreadyPurchased({ args: [uniqueId] });
 		} catch (error) {
 			console.log("Error" + error);
 		}
 		return data;
 	};
-	const buyCourse = async (pId, amount) => {
-		const data = await contract.call("purchaseCourse", [pId], {
+	const buyCourse = async (uniqueId, amount) => {
+		const data = await contract.call("purchaseCourse", [uniqueId], {
 			value: ethers.utils.parseEther(amount),
 		});
 		return data;

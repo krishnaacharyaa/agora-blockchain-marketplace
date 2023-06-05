@@ -13,12 +13,12 @@ const CourseDetails = () => {
 	const { buyCourse, isAlreadyPurchased } = useStateContext();
 	const handleSubmit = async () => {
 		setIsLoading(true);
-		await buyCourse(state.pId, ethers.utils.formatUnits(state.price, 18));
+		await buyCourse(state.uniqueId, ethers.utils.formatUnits(state.price, 18));
 		setIsLoading(false);
 		navigate("/");
 	};
 	// const alreadyPurchased = async () => {
-	// 	const data = await isAlreadyPurchased(state.pId);
+	// 	const data = await isAlreadyPurchased(state.uniqueId);
 	// 	setAlreadyPurchasedState(data);
 	// };
 	useEffect(() => {

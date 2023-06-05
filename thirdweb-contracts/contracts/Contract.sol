@@ -14,6 +14,7 @@ pragma solidity ^0.8.9;
 
 contract Agora {
     struct Course {
+        uint256 uniqueId;
         address owner;
         string title;
         string description;
@@ -40,6 +41,7 @@ contract Agora {
     mapping(uint256 => Instructor) public instructors;
     mapping(uint256 => address) public students;
 
+    uint256 public uniqueId = 0;
     uint256 public numberOfCourses = 0;
     uint256 public numberOfInstructors = 0;
     uint256 public numberOfStudents = 0;
@@ -70,6 +72,8 @@ contract Agora {
     ) public returns (uint256) {
         Course storage course = courses[numberOfCourses];
         Instructor storage instructor = instructors[numberOfInstructors];
+
+        course.uniqueId = uniqueId++;
         course.owner = _owner;
         course.title = _title;
         course.description = _description;
@@ -166,13 +170,13 @@ contract Agora {
     function getNumberOfCourses()
         public
         view
-        returns (string[] memory, uint256[] memory)
+        returns (uint256[] memory, uint256[] memory)
     {
-        string[] memory coursesForTrend = new string[](numberOfCourses);
+        uint256[] memory coursesForTrend = new uint256[](numberOfCourses);
         uint256[] memory numberForTrend = new uint256[](numberOfCourses);
         for (uint256 i = 0; i < numberOfCourses; i++) {
             // coursesForTrend.push(courses[i]);
-            coursesForTrend[i] = courses[i].title;
+            coursesForTrend[i] = courses[i].uniqueId;
             numberForTrend[i] = courses[i].consumers.length;
             // numberForTrend.push(courses[i].consumers.length);
         }
