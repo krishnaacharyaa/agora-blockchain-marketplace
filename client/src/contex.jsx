@@ -4,7 +4,6 @@ import {
 	useAddress,
 	useContract,
 	useMetamask,
-	useContractRead,
 	useContractWrite,
 } from "@thirdweb-dev/react";
 
