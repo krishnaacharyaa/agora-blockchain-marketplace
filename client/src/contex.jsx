@@ -17,7 +17,8 @@ export const StateContextProvider = ({ children }) => {
 
 	const [currentAccount, setCurrentAccount] = useState("");
 	const { contract } = useContract(
-		"0x55797162a41Ee1369B89594218c65331394CE7b8"
+		"0xA758A57E742386Dc3BC21EeBA114FeF235e4CdA5"
+		// "0x55797162a41Ee1369B89594218c65331394CE7b8"
 		// "0x6D9885d0B30551b56E54381516aa2F490f038C9a"
 		// "0x8D3595D14ffCBD604780a149c966aEd4b64CF9a1"
 	);
